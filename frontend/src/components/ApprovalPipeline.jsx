@@ -340,7 +340,7 @@ export default function ApprovalPipeline({ orgId, activeRole }) {
           }}>
             {[
               { id: 'overview', label: 'Copy & Rules' },
-              { id: 'revisions', label: `Diffs (${selectedReview.revisions?.length || 1})` },
+              { id: 'revisions', label: `Diffs (${selectedReview.revisions?.length || 0})` },
               { id: 'comments', label: `Discussion (${selectedReview.comments?.length || 0})` },
               { id: 'audit', label: 'Audit Trail' },
             ].map(tab => (
@@ -459,6 +459,11 @@ export default function ApprovalPipeline({ orgId, activeRole }) {
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    {(!selectedReview.findings || selectedReview.findings.length === 0) && (
+                      <div style={{ padding: '20px', textAlign: 'center', color: 'var(--text-dim)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)' }}>
+                        No rule findings.
+                      </div>
+                    )}
                     {selectedReview.findings?.map((f, i) => (
                       <div
                         key={f.id || i}
@@ -491,6 +496,11 @@ export default function ApprovalPipeline({ orgId, activeRole }) {
 
             {detailTab === 'revisions' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {(!selectedReview.revisions || selectedReview.revisions.length === 0) && (
+                  <div style={{ padding: '24px', textAlign: 'center', color: 'var(--text-dim)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)' }}>
+                    No revisions have been saved.
+                  </div>
+                )}
                 {selectedReview.revisions?.map((rev) => (
                   <div key={rev.id} style={{
                     background: 'var(--bg-input)',
@@ -528,6 +538,11 @@ export default function ApprovalPipeline({ orgId, activeRole }) {
             {detailTab === 'comments' && (
               <div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '12px' }}>
+                  {(!selectedReview.comments || selectedReview.comments.length === 0) && (
+                    <div style={{ padding: '20px', textAlign: 'center', color: 'var(--text-dim)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)' }}>
+                      No discussion yet. Start the conversation below.
+                    </div>
+                  )}
                   {selectedReview.comments?.map((c) => (
                     <div key={c.id} style={{
                       background: 'var(--bg-input)',
@@ -574,7 +589,12 @@ export default function ApprovalPipeline({ orgId, activeRole }) {
 
             {detailTab === 'audit' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontFamily: 'var(--font-mono)', fontSize: '0.72rem' }}>
-                {selectedReview.audit_logs?.map((a) => (
+                {(!(selectedReview.audit_logs || selectedReview.audit_events)?.length) && (
+                  <div style={{ padding: '24px', textAlign: 'center', color: 'var(--text-dim)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)' }}>
+                    No audit events recorded yet.
+                  </div>
+                )}
+                {(selectedReview.audit_logs || selectedReview.audit_events)?.map((a) => (
                   <div key={a.id} style={{
                     padding: '8px 10px',
                     background: 'var(--bg-input)',

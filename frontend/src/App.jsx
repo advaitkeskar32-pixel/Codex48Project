@@ -11,7 +11,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('studio');
   const [activeRole, setActiveRole] = useState('creator');
   const [orgId, setOrgId] = useState(1);
-  const [orgName, setOrgName] = useState('Northwind Labs');
+  const [orgName, setOrgName] = useState('BrandGuard');
   const [pipelineCount, setPipelineCount] = useState(0);
   const [presets, setPresets] = useState([]);
 
@@ -20,10 +20,10 @@ export default function App() {
       const [presetsData, reviewsData, orgData] = await Promise.all([
         api.getDemoPresets(orgId),
         api.listReviews(orgId),
-        api.getOrg(orgId).catch(() => ({ name: 'Northwind Labs' })),
+        api.getOrg(orgId).catch(() => ({ name: 'BrandGuard' })),
       ]);
       setPresets(presetsData);
-      setOrgName(orgData.name || 'Northwind Labs');
+      setOrgName(orgData.name || 'BrandGuard');
       const pending = (reviewsData || []).filter(r => r.status === 'in_review' || r.status === 'changes_requested');
       setPipelineCount(pending.length);
     } catch (err) {
@@ -47,7 +47,7 @@ export default function App() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg-primary)' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#ffffff' }}>
       {/* Navigation Header */}
       <Header
         activeTab={activeTab}

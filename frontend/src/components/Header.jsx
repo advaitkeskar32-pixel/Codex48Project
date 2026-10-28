@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import brandGuardLogo from '../assets/brandguard-logo.png';
 import { 
-  Shield, 
   FileText, 
   GitPullRequest, 
   BookOpen, 
@@ -82,8 +82,13 @@ export default function Header({
             alignItems: 'center',
             justifyContent: 'center',
             color: 'var(--text-main)',
+            overflow: 'hidden',
           }}>
-            <Shield size={18} color="#94a3b8" />
+            <img
+              src={brandGuardLogo}
+              alt="BrandGuard logo"
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+            />
           </div>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -107,9 +112,6 @@ export default function Header({
               }}>
                 v0.1.0
               </span>
-            </div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', marginTop: '1px' }}>
-              Org: <span style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>{orgName}</span>
             </div>
           </div>
         </div>

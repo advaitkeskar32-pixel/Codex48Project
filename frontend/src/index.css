@@ -3,19 +3,19 @@
   --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  /* GitHub/Linear-grade dark engineering palette */
-  --bg-primary: #0b0e14;
-  --bg-secondary: #11151f;
-  --bg-tertiary: #171d2b;
-  --bg-card: #11151f;
-  --bg-card-hover: #171c29;
-  --bg-input: #0b0e14;
-  --bg-glass: #11151f;
+  /* Clean white engineering palette */
+  --bg-primary: #ffffff;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8fafc;
+  --bg-input: #ffffff;
+  --bg-glass: #ffffff;
 
   /* Borders: crisp 1px lines */
-  --border-subtle: #202636;
-  --border-hover: #313a52;
-  --border-accent: #2c3b59;
+  --border-subtle: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --border-accent: #93c5fd;
 
   /* Primary action: crisp engineering blue */
   --primary: #2563eb;
@@ -48,10 +48,10 @@
   --purple-border: rgba(192, 132, 252, 0.2);
 
   /* Typography */
-  --text-main: #f1f5f9;
-  --text-muted: #94a3b8;
+  --text-main: #0f172a;
+  --text-muted: #475569;
   --text-dim: #64748b;
-  --text-inverse: #020617;
+  --text-inverse: #ffffff;
 
   /* Elevation */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);

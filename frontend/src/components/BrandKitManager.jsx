@@ -199,7 +199,7 @@ export default function BrandKitManager({ orgId }) {
               Corporate Color Palette
             </div>
             <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', marginBottom: '14px' }}>
-              Extracted from {org?.name || 'Northwind Labs'}. Images and styles are evaluated against these hex definitions.
+              Images and styles are evaluated against these hex definitions.
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: '8px', marginBottom: '18px' }}>

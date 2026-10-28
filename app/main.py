@@ -5,9 +5,11 @@ where marked. Until then org_id is taken from the URL.
 """
 from contextlib import asynccontextmanager
 from datetime import date, datetime, timezone
+from pathlib import Path
 
 from fastapi import Depends, FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from sqlalchemy import case, func
 from sqlalchemy.orm import Session
@@ -32,6 +34,16 @@ from .rules import contrast
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     init_db()
+    from .db import SessionLocal
+    from .kit import load_kit
+
+    session = SessionLocal()
+    try:
+        if session.query(Organisation).count() == 0:
+            kit_path = Path(__file__).resolve().parent.parent / "sample_kit" / "northwind.json"
+            load_kit(session, kit_path, embed=False)
+    finally:
+        session.close()
     yield
 
 
