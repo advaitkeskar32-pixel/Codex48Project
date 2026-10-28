@@ -9,5 +9,7 @@ services:
     envVars:
       - key: DATABASE_URL
         value: sqlite:///./brandguard.db
+      - key: PYTHONUNBUFFERED
+        value: true
       - key: GEMINI_API_KEY
         sync: false
