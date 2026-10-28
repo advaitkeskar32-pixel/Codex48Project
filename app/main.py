@@ -740,10 +740,17 @@ def demo_presets(org_id: int) -> list[dict]:
 
 
 import os
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 frontend_dist = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend", "dist"))
-if os.path.exists(frontend_dist):
+frontend_index = os.path.join(frontend_dist, "index.html")
+if os.path.exists(frontend_index):
+    @app.get("/", include_in_schema=False)
+    async def frontend_root():
+        return FileResponse(frontend_index)
+
+    app.mount("/assets", StaticFiles(directory=os.path.join(frontend_dist, "assets")), name="assets")
     app.mount("/", StaticFiles(directory=frontend_dist, html=True), name="static")
 
 
