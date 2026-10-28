@@ -12,8 +12,21 @@ class Base(DeclarativeBase):
     pass
 
 
+def _usable_url(url: str) -> str:
+    if url.startswith("mysql"):
+        try:
+            from sqlalchemy.engine import make_url
+
+            parsed = make_url(url)
+            if not parsed.username or "*" in parsed.username or not parsed.host:
+                return "sqlite:///./brandguard.db"
+        except Exception:
+            return "sqlite:///./brandguard.db"
+    return url
+
+
 def make_engine(url: str | None = None):
-    url = url or settings.database_url
+    url = _usable_url(url or settings.database_url)
     kwargs: dict = {"pool_pre_ping": True}
     if url.startswith("mysql"):
         import certifi
