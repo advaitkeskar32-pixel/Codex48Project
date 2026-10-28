@@ -111,6 +111,13 @@ def _migrate_sqlite_workflow(eng) -> None:
 
     existing = {column["name"] for column in inspector.get_columns("findings")}
     additions = {
+        "verdict": "VARCHAR(20)",
+        "message": "TEXT NOT NULL DEFAULT ''",
+        "original": "TEXT NOT NULL DEFAULT ''",
+        "suggestion": "TEXT NOT NULL DEFAULT ''",
+        "start": "INTEGER",
+        "end": "INTEGER",
+        "evidence": "TEXT NOT NULL DEFAULT '{}'",
         "status": "VARCHAR(12) NOT NULL DEFAULT 'open'",
         "dismiss_reason": "VARCHAR(500) NOT NULL DEFAULT ''",
         "incorrect_finding": "BOOLEAN NOT NULL DEFAULT 0",

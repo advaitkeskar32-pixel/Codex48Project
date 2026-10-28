@@ -9,6 +9,7 @@ from pathlib import Path
 
 from fastapi import Depends, FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from sqlalchemy import case, func
@@ -745,11 +746,19 @@ from fastapi.staticfiles import StaticFiles
 
 frontend_dist = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend", "dist"))
 frontend_index = os.path.join(frontend_dist, "index.html")
-if os.path.exists(frontend_index):
-    @app.get("/", include_in_schema=False)
-    async def frontend_root():
+@app.get("/", include_in_schema=False)
+async def frontend_root():
+    if os.path.exists(frontend_index):
         return FileResponse(frontend_index)
+    return HTMLResponse("""
+    <!doctype html><html><body style="font-family:sans-serif;padding:2rem">
+    <h1>BrandGuard backend is running</h1>
+    <p>The frontend build was not found. Check the Render build logs, then redeploy.</p>
+    <p><a href="/health">Health</a> | <a href="/docs">API documentation</a></p>
+    </body></html>
+    """, status_code=200)
 
+if os.path.exists(frontend_index):
     app.mount("/assets", StaticFiles(directory=os.path.join(frontend_dist, "assets")), name="assets")
     app.mount("/", StaticFiles(directory=frontend_dist, html=True), name="static")
 
